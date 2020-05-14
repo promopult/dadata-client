@@ -9,6 +9,4 @@ build:
           - php-scrutinizer-run
 
 tools:
-  external_code_coverage:
-    timeout: 300
-    runs: 2
+  external_code_coverage: true
