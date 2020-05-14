@@ -19,7 +19,7 @@ class Client implements ServiceFactoryInterface
     private $httpClient;
 
     /**
-     * @var RequestFactory
+     * @var \Promopult\Dadata\RequestFactoryInterface
      */
     private $requestFactory;
 
