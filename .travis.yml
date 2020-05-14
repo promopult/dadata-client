@@ -11,7 +11,7 @@ script:
 
 after_success:
   - travis_retry wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --access-token="88852689d2b7b3b515595e4c081c697aa7f93b9867151a0c58e08f307ab7afae" --format=php-clover coverage.clover
+  - php ocular.phar code-coverage:upload --access-token=88852689d2b7b3b515595e4c081c697aa7f93b9867151a0c58e08f307ab7afae --format=php-clover coverage.clover
 branches:
   only:
     - master
