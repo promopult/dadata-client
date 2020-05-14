@@ -2,6 +2,11 @@
 
 Клиентская библитотека для API сервиса [DaData.ru](Https://dadata.ru)
 
+[![Build Status](https://travis-ci.org/promopult/dadata-client.svg?branch=master)](https://travis-ci.org/promopult/dadata-client)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/promopult/dadata-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/promopult/dadata-client/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/promopult/dadata-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/promopult/dadata-client/?branch=master)
+
+
 ### Установка 
 
 ```bash
