@@ -1,0 +1,48 @@
+{
+    "name": "promopult/dadata-client",
+    "description": "DaData.ru API client",
+    "type": "library",
+    "license": "UNLICENSE",
+    "authors": [
+        {
+            "name": "Dmitry Gladyshev",
+            "email": "dgladyshev@promopult.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.2",
+        "ext-json": "*",
+        "psr/http-client": "*",
+        "psr/simple-cache": "*",
+        "psr/http-message": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "squizlabs/php_codesniffer": "*",
+        "guzzlehttp/guzzle": "7.0.0-beta.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Promopult\\Dadata\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Promopult\\Dadata\\Tests\\": [
+                "tests/"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "cs-check": "phpcs",
+        "cs-fix": "phpcbf"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}
