@@ -1,4 +1,4 @@
-# PHP-библиотека APIDaData.ru
+# PHP-библиотека API DaData.ru
 
 Клиентская библитотека для API сервиса [DaData.ru](Https://dadata.ru)
 
