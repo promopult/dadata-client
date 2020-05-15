@@ -46,10 +46,10 @@ class Client implements ServiceFactoryInterface
             }
         }
 
-        /* Setting Up defaults */
-
         if (empty($this->httpClient)) {
-            $this->httpClient = new \GuzzleHttp\Client();
+            throw new \Promopult\Dadata\Exceptions\InvalidConfigurationException(
+                "Http client is not initialized."
+            );
         }
 
         if (empty($this->requestFactory)) {

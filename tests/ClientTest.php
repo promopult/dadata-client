@@ -11,7 +11,11 @@ class ClientTest extends TestCase
 
     public function setUp(): void
     {
-        $this->client = new Client('token', 'secret');
+        $this->client = new Client(
+            'token',
+            'secret',
+            new \Http\Adapter\Guzzle6\Client()
+        );
     }
 
     /**

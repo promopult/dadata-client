@@ -4,7 +4,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $client = new \Promopult\Dadata\Client(
     getenv('__TOKEN__'),
-    getenv('__SECRET__')
+    getenv('__SECRET__'),
+    new Http\Adapter\Guzzle6\Client()
 );
 
 $suggestions = $client->suggestions->bankSuggest('тиньк');

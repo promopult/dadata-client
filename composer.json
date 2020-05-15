@@ -16,12 +16,13 @@
         "ext-json": "*",
         "psr/http-client": "*",
         "psr/simple-cache": "*",
-        "psr/http-message": "*"
+        "psr/http-message": "*",
+        "guzzlehttp/psr7": "~1.6"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
         "squizlabs/php_codesniffer": "*",
-        "guzzlehttp/guzzle": "7.0.0-beta.1"
+        "php-http/guzzle6-adapter": "*"
     },
     "autoload": {
         "psr-4": {
