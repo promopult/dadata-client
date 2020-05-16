@@ -27,7 +27,8 @@ $ composer require promopult/dadata-client
 ```php
 $client = new \Promopult\Dadata\Client(
     getenv('__API_KEY__'), 
-    getenv('__SECRET_KEY___')
+    getenv('__SECRET_KEY___'),
+    new \Http\Adapter\Guzzle6\Client()
 );
 
 $suggestions = $client->suggestions->partySuggest('сбербанк');
