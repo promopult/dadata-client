@@ -8,6 +8,6 @@ $client = new \Promopult\Dadata\Client(
     new Http\Adapter\Guzzle6\Client()
 );
 
-$clean = $client->clean->address('сходненс');
+$balance = $client->profile->balance();
 
-var_dump($clean);
+var_dump($balance);
