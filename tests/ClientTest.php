@@ -45,8 +45,9 @@ class ClientTest extends TestCase
     public function validServiceNamesDataProvider()
     {
         return [
-          ['clean'],
-          ['suggestions']
+            ['clean'],
+            ['suggestions'],
+            ['profile']
         ];
     }
 

@@ -6,8 +6,6 @@ namespace Promopult\Dadata;
 
 /**
  * Interface RequestFactoryInterface
- *
- * @author Dmitry Gladyshev <gladyshevd@icloud.com>
  */
 interface RequestFactoryInterface
 {

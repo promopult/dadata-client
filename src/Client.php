@@ -10,6 +10,7 @@ namespace Promopult\Dadata;
  * Services
  * @property \Promopult\Dadata\Services\Suggestions $suggestions
  * @property \Promopult\Dadata\Services\Clean $clean
+ * @property \Promopult\Dadata\Services\Profile $profile
  */
 class Client implements ServiceFactoryInterface
 {
@@ -26,7 +27,12 @@ class Client implements ServiceFactoryInterface
     /**
      * Client constructor.
      *
-     * @param mixed ...$args
+     * @param mixed ...$args Ожидает на вход строки Токена и Секрета или фабрику запросов уже
+     *                       инициализированную Токеном и Секретом, а так же PSR-18-совместимый HTTP-клиент.
+     *
+     *                       Например,
+     *                          $client = new Client('token', 'secret', new \Guzzlehttp\Client);
+     *                          $client = new Client(new RequestFactory('token', 'secret'), new \Guzzlehttp\Client);
      */
     public function __construct(...$args)
     {
@@ -59,7 +65,7 @@ class Client implements ServiceFactoryInterface
                 );
             }
 
-            list ($token, $secret) = $credentials;
+            [$token, $secret] = $credentials;
 
             $this->requestFactory = new \Promopult\Dadata\RequestFactory($token, $secret);
         }

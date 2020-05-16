@@ -6,8 +6,6 @@ namespace Promopult\Dadata;
 
 /**
  * Interface ServiceFactoryInterface
- *
- * @author Dmitry Gladyshev <gladyshevd@icloud.com>
  */
 interface ServiceFactoryInterface
 {
