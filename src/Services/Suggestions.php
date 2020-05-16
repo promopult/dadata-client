@@ -6,8 +6,6 @@ namespace Promopult\Dadata\Services;
 
 /**
  * Class Suggestions
- *
- * https://dadata.ru/api/#suggest
  */
 final class Suggestions extends \Promopult\Dadata\Service
 {
@@ -188,6 +186,48 @@ final class Suggestions extends \Promopult\Dadata\Service
     }
 
     /**
+     * API подсказок по адресам
+     *
+     * @param string $query
+     * @param int|null $count
+     * @param string|null $language
+     * @param array|null $locations
+     * @param array|null $locationsBoost
+     * @param string|null $fromBound
+     * @param string|null $toBound
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/address/
+     */
+    public function addressSuggest(
+        string $query,
+        ?int $count = null,
+        ?string $language = null,
+        ?array $locations = null,
+        ?array $locationsBoost = null,
+        ?string $fromBound = null,
+        ?string $toBound = null
+    ): array {
+
+        $fromBound = $fromBound ?: ['value' => $fromBound];
+        $toBound = $toBound ?: ['value' => $toBound];
+
+        return $this->suggest(
+            array_filter([
+                'query' => $query,
+                'count' => $count,
+                'language' => $language,
+                'locations' => $locations,
+                'locations_boost' => $locationsBoost,
+                'from_bound' => $fromBound,
+                'to_bound' => $toBound
+            ]),
+            'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address'
+        );
+    }
+
+    /**
      * Отделения Почты России по геолокации
      *
      * @param string $lat
@@ -287,6 +327,322 @@ final class Suggestions extends \Promopult\Dadata\Service
             'query' => $query
         ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/delivery');
     }
+
+    /**
+     * API подсказок по ФИАС
+     *
+     * @param string $query
+     * @param int|null $count
+     * @param array|null $locations
+     * @param array|null $locationsBoost
+     * @param string|null $fromBound
+     * @param string|null $toBound
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/fias/
+     */
+    public function fiasSuggest(
+        string $query,
+        ?int $count = null,
+        ?array $locations = null,
+        ?array $locationsBoost = null,
+        ?string $fromBound = null,
+        ?string $toBound = null
+    ): array {
+        $fromBound = $fromBound ?: ['value' => $fromBound];
+        $toBound = $toBound ?: ['value' => $toBound];
+
+        return $this->suggest(
+            array_filter([
+                'query' => $query,
+                'count' => $count,
+                'locations' => $locations,
+                'locations_boost' => $locationsBoost,
+                'from_bound' => $fromBound,
+                'to_bound' => $toBound
+            ]),
+            'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/fias'
+        );
+    }
+
+    /**
+     * API справочников: кем выдан паспорт
+     *
+     * @param string $query
+     * @param array|null $filters
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/fms_unit/
+     */
+    public function fmsUnitSuggest(
+        string $query,
+        ?array $filters = []
+    ): array {
+        return $this->suggest(
+            array_filter([
+                'query' => $query,
+                'filters' => $filters
+            ]),
+            'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/fms_unit'
+        );
+    }
+
+    /**
+     * API справочников: марки автомобилей
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/car_brand/
+     */
+    public function carBrandSuggest(
+        string $query
+    ): array {
+        return $this->suggest(
+            [
+                'query' => $query
+            ],
+            'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/car_brand'
+        );
+    }
+
+    /**
+     * API справочников: марки автомобилей
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/car_brand/
+     */
+    public function carBrandFindById(string $query): array
+    {
+        return $this->suggest([
+            'query' => $query
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/car_brand');
+    }
+
+    /**
+     * API справочников: страны
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/country/
+     */
+    public function countrySuggest(string $query): array
+    {
+        return $this->suggest([
+            'query' => $query
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/country');
+    }
+
+    /**
+     * API справочников: страны
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/country/
+     */
+    public function countryFindById(string $query): array
+    {
+        return $this->suggest([
+            'query' => $query
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/country');
+    }
+
+    /**
+     * API справочников: валюты
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/currency/
+     */
+    public function currencySuggest(string $query): array
+    {
+        return $this->suggest([
+            'query' => $query
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/currency');
+    }
+
+    /**
+     * API справочников: валюты
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/currency/
+     */
+    public function currencyFindById(string $query): array
+    {
+        return $this->suggest([
+            'query' => $query
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/currency');
+    }
+
+    /**
+     * API справочников: виды деятельности (ОКВЭД 2)
+     *
+     * @param string $query
+     * @param array|null $filters   [["razdel" => "C" ], ...]
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/okved2/
+     */
+    public function okved2Suggest(string $query, ?array $filters = null): array
+    {
+        return $this->suggest([
+            'query' => $query,
+            'filters' => $filters
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/okved2');
+    }
+
+    /**
+     * API справочников: виды деятельности (ОКВЭД 2)
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/okved2/
+     */
+    public function okved2FindById(string $query): array
+    {
+        return $this->suggest([
+            'query' => $query
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/okved2');
+    }
+
+    /**
+     * API справочников: виды продукции (ОКПД 2)
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/okpd2/
+     */
+    public function okpd2Suggest(string $query): array
+    {
+        return $this->suggest([
+            'query' => $query
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/okpd2');
+    }
+
+    /**
+     * API справочников: виды продукции (ОКПД 2)
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/okpd2/
+     */
+    public function okpd2FindById(string $query): array
+    {
+        return $this->suggest([
+            'query' => $query
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/okpd2');
+    }
+
+    /**
+     * API справочников: налоговые инспекции
+     *
+     * @param string $query
+     * @param array|null $filter
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/fns_unit/
+     */
+    public function fnsUnitSuggest(string $query, ?array $filter = null): array
+    {
+        return $this->suggest([
+            'query' => $query,
+            'filter' => $filter
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/fns_unit');
+    }
+
+    /**
+     * API справочников: налоговые инспекции
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/fns_unit/
+     */
+    public function fnsUnitFindById(string $query): array
+    {
+        return $this->suggest([
+            'query' => $query
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/fns_unit');
+    }
+
+    /**
+     * API справочников: мировые суды
+     *
+     * @param string $query
+     * @param array|null $filters
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/region_court/
+     */
+    public function regionCourtSuggest(string $query, ?array $filters = null): array
+    {
+        return $this->suggest([
+            'query' => $query,
+            'filters' => $filters
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/region_court');
+    }
+
+    /**
+     * API справочников: мировые суды
+     *
+     * @param string $query
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/region_court/
+     */
+    public function regionCourtFindById(string $query): array
+    {
+        return $this->suggest([
+            'query' => $query,
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/region_court');
+    }
+
+
+    /**
+     * API справочников: станции метро
+     *
+     * @param string $query
+     * @param array|null $filters   [['city_kladr_id' => '7800000000000'], ...]
+     * @return array
+     * @throws \Psr\Http\Client\ClientExceptionInterface
+     *
+     * @see https://dadata.ru/api/suggest/metro/
+     */
+    public function metroSuggest(string $query, ?array $filters = null): array
+    {
+        return $this->suggest([
+            'query' => $query,
+            'filters' => $filters
+        ], 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/metro');
+    }
+
+    /* Private */
 
     /**
      * @param array $args
