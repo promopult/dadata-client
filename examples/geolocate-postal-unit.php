@@ -10,7 +10,7 @@ $client = new \Promopult\Dadata\Client(
 
 $suggestions = $client->suggestions->postalUnitGeolocate(
     '55.878', // lat
-    '37.653', // lol
+    '37.653', // lon
     100,      // count
     1000,     // radius
     [
