@@ -1,6 +1,6 @@
 {
     "name": "promopult/dadata-client",
-    "description": "DaData.ru API client",
+    "description": "Modern full featured DaData.ru API client",
     "type": "library",
     "license": "UNLICENSE",
     "authors": [
