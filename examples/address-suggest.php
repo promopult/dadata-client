@@ -8,6 +8,6 @@ $client = new \Promopult\Dadata\Client(
     new Http\Adapter\Guzzle6\Client()
 );
 
-$suggestions = $client->suggestions->addressSuggest('г Москва, ул Свободы, 50с3');
+$suggestions = $client->suggestions->addressSuggest('г Москва, ул Свободы, 50');
 
 var_dump($suggestions);
