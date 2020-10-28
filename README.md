@@ -1,6 +1,6 @@
 # PHP-библиотека API DaData.ru
 
-Клиентская библитотека для API сервиса [DaData.ru](Https://dadata.ru)
+Клиентская библиотека для API сервиса [DaData.ru](Https://dadata.ru)
 
 [![Build Status](https://travis-ci.org/promopult/dadata-client.svg?branch=master)](https://travis-ci.org/promopult/dadata-client)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/promopult/dadata-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/promopult/dadata-client/?branch=master)
@@ -28,7 +28,7 @@ $ composer require promopult/dadata-client
 $client = new \Promopult\Dadata\Client(
     getenv('__API_KEY__'), 
     getenv('__SECRET_KEY___'),
-    new \Http\Adapter\Guzzle6\Client()
+    new \GuzzleHttp\Client()
 );
 
 $suggestions = $client->suggestions->partySuggest('сбербанк');
