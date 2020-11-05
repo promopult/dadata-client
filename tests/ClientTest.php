@@ -14,7 +14,7 @@ class ClientTest extends TestCase
         $this->client = new Client(
             'token',
             'secret',
-            new \Http\Adapter\Guzzle6\Client()
+            new \GuzzleHttp\Client()
         );
     }
 
