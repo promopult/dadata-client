@@ -43,6 +43,6 @@ class RequestFactory implements \Promopult\Dadata\RequestFactoryInterface
             'Accept' => 'application/json',
             'Authorization' => 'Token ' . $this->token,
             'X-Secret' => $this->secret
-        ], json_encode($args));
+        ], \json_encode($args));
     }
 }
