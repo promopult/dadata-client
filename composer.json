@@ -17,12 +17,12 @@
         "psr/http-client": "*",
         "psr/simple-cache": "*",
         "psr/http-message": "*",
-        "guzzlehttp/psr7": "~1.6"
+        "guzzlehttp/psr7": "~2.4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
         "squizlabs/php_codesniffer": "*",
-        "guzzlehttp/guzzle": "~7.2.0"
+        "guzzlehttp/guzzle": "~7.4.0"
     },
     "autoload": {
         "psr-4": {
