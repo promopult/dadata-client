@@ -16,18 +16,17 @@ $ composer require promopult/dadata-client
 ```
 "require": {
   // ...
-  "promopult/dadata-client": "*"
+  "promopult/dadata-client": "~2.0.0"
   // ...
 }
 ```
 
-### Примеры
-Смотрите папку [examples](/examples).
+### Использование
+Смотрите различные примеры в папке [examples](/examples).
 
 ```php
 $client = new \Promopult\Dadata\Client(
-    getenv('__API_KEY__'), 
-    getenv('__SECRET_KEY___'),
+    new \Promopult\Dadata\Credentials(getenv('__TOKEN__'), getenv('__SECRET__')),
     new \GuzzleHttp\Client()
 );
 

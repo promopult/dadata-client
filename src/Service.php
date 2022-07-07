@@ -1,34 +1,35 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Promopult\Dadata;
 
-/**
- * Class Service
- */
-abstract class Service
+use Psr\Http\Client\ClientInterface;
+
+abstract class Service implements RequestFactoryInterface
 {
-    /**
-     * @var \Promopult\Dadata\RequestFactory
-     */
-    protected $requestFactory;
+    protected ClientInterface $httpClient;
+    protected CredentialsInterface $credentials;
 
-    /**
-     * @var \Psr\Http\Client\ClientInterface
-     */
-    protected $httpClient;
-
-    /**
-     * AbstractService constructor.
-     * @param RequestFactory $requestFactory
-     * @param \Psr\Http\Client\ClientInterface $httpClient
-     */
     public function __construct(
-        \Promopult\Dadata\RequestFactory $requestFactory,
-        \Psr\Http\Client\ClientInterface $httpClient
+        CredentialsInterface $credentials,
+        ClientInterface $httpClient
     ) {
-        $this->requestFactory = $requestFactory;
         $this->httpClient = $httpClient;
+        $this->credentials = $credentials;
+    }
+
+    /**
+     * Creates request with necessary headers & encoded body.
+     */
+    public function createRequest(
+        string $method,
+        string $uri,
+        array $args = []
+    ): \Psr\Http\Message\RequestInterface {
+        return new \GuzzleHttp\Psr7\Request($method, $uri, [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Token ' . $this->credentials->getToken(),
+            'X-Secret' => $this->credentials->getSecret()
+        ], \json_encode($args));
     }
 }

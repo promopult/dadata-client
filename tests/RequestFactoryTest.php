@@ -2,8 +2,10 @@
 
 namespace Pomopult\Dadata\Tests;
 
-use Promopult\Dadata\RequestFactory;
+use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
+use Promopult\Dadata\Credentials;
+use Promopult\Dadata\Service;
 
 class RequestFactoryTest extends TestCase
 {
@@ -11,7 +13,13 @@ class RequestFactoryTest extends TestCase
 
     public function setUp(): void
     {
-        $this->factory = new RequestFactory('token1234', 'secret1234');
+        $credentials = $this->createMock(Credentials::class);
+        $credentials->method('getSecret')->willReturn('secret1234');
+        $credentials->method('getToken')->willReturn('token1234');
+
+        $httpClient = $this->createMock(Client::class);
+
+        $this->factory = new class($credentials, $httpClient)  extends Service {};
     }
 
     public function testRequestFactoryMustCreateRequestInterface()

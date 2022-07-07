@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Promopult\Dadata;
+
+use Psr\Http\Client\ClientInterface;
 
 /**
  * Class Client
@@ -14,61 +14,16 @@ namespace Promopult\Dadata;
  */
 class Client implements ServiceFactoryInterface
 {
-    /**
-     * @var \Psr\Http\Client\ClientInterface
-     */
-    private $httpClient;
+    private RequestFactoryInterface $requestFactory;
+    private ClientInterface $httpClient;
+    private CredentialsInterface $credentials;
 
-    /**
-     * @var \Promopult\Dadata\RequestFactoryInterface
-     */
-    private $requestFactory;
-
-    /**
-     * Client constructor.
-     *
-     * @param mixed ...$args Ожидает на вход строки Токена и Секрета или фабрику запросов уже
-     *                       инициализированную Токеном и Секретом, а так же PSR-18-совместимый HTTP-клиент.
-     *
-     *                       Например,
-     *                          $client = new Client('token', 'secret', new \Guzzlehttp\Client);
-     *                          $client = new Client(new RequestFactory('token', 'secret'), new \Guzzlehttp\Client);
-     */
-    public function __construct(...$args)
-    {
-        $credentials = [];
-
-        foreach ($args as $arg) {
-            if ($arg instanceof \Promopult\Dadata\RequestFactoryInterface) {
-                $this->requestFactory = $arg;
-            }
-
-            if ($arg instanceof \Psr\Http\Client\ClientInterface) {
-                $this->httpClient = $arg;
-            }
-
-            if (is_string($arg)) {
-                $credentials[] = $arg;
-            }
-        }
-
-        if (empty($this->httpClient)) {
-            throw new \Promopult\Dadata\Exceptions\InvalidConfigurationException(
-                "Http client is not initialized."
-            );
-        }
-
-        if (empty($this->requestFactory)) {
-            if (!is_string($credentials[0]) || !is_string($credentials[1])) {
-                throw new \Promopult\Dadata\Exceptions\InvalidConfigurationException(
-                    "Invalid credentials. Expect Token and Secret variables in order."
-                );
-            }
-
-            [$token, $secret] = $credentials;
-
-            $this->requestFactory = new \Promopult\Dadata\RequestFactory($token, $secret);
-        }
+    public function __construct(
+        CredentialsInterface $credentials,
+        ClientInterface $httpClient
+    ) {
+        $this->credentials = $credentials;
+        $this->httpClient = $httpClient;
     }
 
     public function getService(string $serviceName): Service
@@ -82,7 +37,7 @@ class Client implements ServiceFactoryInterface
         }
 
         return new $serviceClass(
-            $this->requestFactory,
+            $this->credentials,
             $this->httpClient
         );
     }

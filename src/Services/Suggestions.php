@@ -20,7 +20,7 @@ final class Suggestions extends \Promopult\Dadata\Service
      */
     public function partyFindById(string $query): array
     {
-        $request = $this->requestFactory->createRequest(
+        $request = $this->createRequest(
             'POST',
             'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party',
             ['query' => $query]
@@ -42,7 +42,7 @@ final class Suggestions extends \Promopult\Dadata\Service
      */
     public function partyFindAffiliated(string $query): array
     {
-        $request = $this->requestFactory->createRequest(
+        $request = $this->createRequest(
             'POST',
             'https://suggestions.dadata.ru/suggestions/api/4_1/rs/findAffiliated/party',
             ['query' => $query]
@@ -652,7 +652,7 @@ final class Suggestions extends \Promopult\Dadata\Service
      */
     private function suggest(array $args, string $uri)
     {
-        $request = $this->requestFactory->createRequest('POST', $uri, $args);
+        $request = $this->createRequest('POST', $uri, $args);
 
         $response = $this->httpClient->sendRequest($request);
 

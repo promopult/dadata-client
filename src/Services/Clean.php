@@ -116,7 +116,7 @@ final class Clean extends \Promopult\Dadata\Service
      */
     private function clean(array $args, string $uri): array
     {
-        $request = $this->requestFactory->createRequest('POST', $uri, $args);
+        $request = $this->createRequest('POST', $uri, $args);
         $response = $this->httpClient->sendRequest($request);
         return \json_decode($response->getBody()->getContents(), true);
     }

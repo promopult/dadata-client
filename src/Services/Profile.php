@@ -15,7 +15,7 @@ final class Profile extends \Promopult\Dadata\Service
      */
     public function balance(): array
     {
-        $request = $this->requestFactory->createRequest('GET', 'https://dadata.ru/api/v2/profile/balance');
+        $request = $this->createRequest('GET', 'https://dadata.ru/api/v2/profile/balance');
         $response = $this->httpClient->sendRequest($request);
 
         return \json_decode($response->getBody()->getContents(), true);
@@ -28,7 +28,7 @@ final class Profile extends \Promopult\Dadata\Service
      */
     public function dailyStat(string $date): array
     {
-        $request = $this->requestFactory->createRequest('GET', 'https://dadata.ru/api/v2/stat/daily?date=' . $date);
+        $request = $this->createRequest('GET', 'https://dadata.ru/api/v2/stat/daily?date=' . $date);
         $response = $this->httpClient->sendRequest($request);
 
         return \json_decode($response->getBody()->getContents(), true);

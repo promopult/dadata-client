@@ -3,8 +3,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 $client = new \Promopult\Dadata\Client(
-    getenv('__TOKEN__'),
-    getenv('__SECRET__'),
+    new \Promopult\Dadata\Credentials(getenv('__TOKEN__'), getenv('__SECRET__')),
     new \GuzzleHttp\Client()
 );
 

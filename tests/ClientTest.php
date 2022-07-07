@@ -12,8 +12,7 @@ class ClientTest extends TestCase
     public function setUp(): void
     {
         $this->client = new Client(
-            'token',
-            'secret',
+            new \Promopult\Dadata\Credentials('token', 'secret'),
             new \GuzzleHttp\Client()
         );
     }
